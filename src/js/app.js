@@ -34,10 +34,11 @@ App = {
       const buf = buffer.Buffer(reader.result) // Convert data into buffer
       ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
         if(err) {
-          console.error(err)
+          console.error("file not uploaded to ipfs" + err)
           return
         }
-        let url = `https://ipfs.io/ipfs/${result[0].hash}`
+        
+        let url = `http://localhost:8080/ipfs/${result[0].hash}`
         console.log(`Url --> ${url}`)
         document.getElementById("url").innerHTML= url
         document.getElementById("url").href= url
