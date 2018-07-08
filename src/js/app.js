@@ -1,22 +1,14 @@
+var $ = require('jquery')
+var IpfsApi =require('ipfs-api')
+var buffer =require('buffer')
+
 App = {
   web3Provider: null,
   contracts: {},
 
   init: function() {
-    const node = new IPFS()
-
-    node.on('ready', () => {
-      // Your node is now ready to use \o/
-
-      console.log("node is ready")      
-      node.stop(() => {
-        // node is now 'offline'
-      })
-    })
-    node.on('error', error => {
-      console.error(error.message)
-    })   
-      
+    
+    console.log("hello world")
     return App.initWeb3();
   },
 
@@ -33,11 +25,33 @@ App = {
      * Replace me...
      */
 
+  },
+
+  upload:function () {
+    const reader = new FileReader();
+    reader.onloadend = function() {
+      const ipfs = IpfsApi('/ip4/127.0.0.1/tcp/5001') // Connect to IPFS
+      const buf = buffer.Buffer(reader.result) // Convert data into buffer
+      ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
+        if(err) {
+          console.error(err)
+          return
+        }
+        let url = `https://ipfs.io/ipfs/${result[0].hash}`
+        console.log(`Url --> ${url}`)
+        document.getElementById("url").innerHTML= url
+        document.getElementById("url").href= url
+        document.getElementById("output").src = url
+      })
+    }
+    const photo = document.getElementById("photo");
+    reader.readAsArrayBuffer(photo.files[0]); // Read Provided File
   }
+
 };
 
 $(function() {
-  $(window).load(function() {
+  $(window).on('load',function() {
     App.init();
   });
 });
