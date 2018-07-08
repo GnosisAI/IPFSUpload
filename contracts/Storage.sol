@@ -1,9 +1,11 @@
 pragma solidity 0.4.24;
 
-contract SimpleStorage {
-    string ipfsHash;
+contract Storage {
+    string ipfsHash = "hello world !";
+    event ValueChanged(string,address);
 
     function set(string x) public {
+        emit ValueChanged(x, msg.sender);
         ipfsHash = x;
     }
 
