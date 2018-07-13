@@ -12,11 +12,16 @@ App = {
   StorageCnt:null,
   ready:false,
   init: function() {
-    App.url = $("#url")
-    App.output = $("#output")
+    this.cacheDom()
     return App.initWeb3();
   },
+  cacheDom:function(){
+    this.$url = $("#url")
+    this.$output = $("#output")
+    this.$photo = $("#photo")
 
+
+  },
   initWeb3: function() {
 
     if (typeof web3 !== 'undefined') {
@@ -60,15 +65,15 @@ App = {
             console.error("file not uploaded to ipfs" + err)
             return
           }
-          App.setValue(result);
-          App.getValue().then(res => console.log(res));
-          
+          App.setValue("update").then(
+            App.getValue().then(res => console.log(res))
+          );
 
           let url = `http://localhost:8080/ipfs/${result[0].hash}`;
-          console.log(`Url --> ${url}`)
-          document.getElementById("url").innerHTML= url
-          document.getElementById("url").href= url
-          document.getElementById("output").src = url
+          console.log(`Url --> ${url} + ${this}`)
+          App.$url.html(url)
+          App.$url.attr("href", url)
+          App.$output.attr("src", url)
         })
       
       }
