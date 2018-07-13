@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      #output{
+          width: 960px;
+      }
+    </style>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Upload to IPFS</title>
+
+  </head>
+  <body>
+    <form action="/">
+      <fieldset>
+        <legend>Upload photo</legend>
+        <input type="file" name="photo" id="photo">
+        <button type="button" onclick="App.upload()">Upload</button>
+      </fieldset>
+    </form>
+    </br>
+    </br>
+    <a id="url"></a>
+    </br>
+    </br>
+    <img id="output">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/bundle.js"></script>
+  </body>
+</html>
